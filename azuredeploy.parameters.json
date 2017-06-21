@@ -42,7 +42,7 @@
       "value": ""
     },
     "_artifactsLocation": {
-      "value": "http://paelazsas1.blob.core.windows.net/armdsc/sql2016aoagmd"
+      "value": "https://github.com/pelazem/sql-server-2016-alwayson-existing-vnet-and-ad-md/tree/master"
     },
     "_artifactsLocationSasToken": {
       "value": ""
