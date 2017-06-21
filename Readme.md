@@ -35,12 +35,10 @@ If the required Azure VNet and Active Directory infrastructure is not yet in pla
 
 Click the button below to deploy from the portal
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fgithub.com%2Fpelazem%2Fsql-server-2016-alwayson-existing-vnet-and-ad-md%2Ftree%2Fmaster%2Fazuredeploy.json" target="_blank">
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fpelazem%2Fsql-server-2016-alwayson-existing-vnet-and-ad-md%2Fmaster%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
-<a href="http://armviz.io/#/?load=https%3A%2F%2Fgithub.com%2Fpelazem%2Fsql-server-2016-alwayson-existing-vnet-and-ad-md%2Ftree%2Fmaster%2Fazuredeploy.json" target="_blank">
-    <img src="http://armviz.io/visualizebutton.png"/>
-</a>
+
 
 ## Deploying Sample Templates
 
