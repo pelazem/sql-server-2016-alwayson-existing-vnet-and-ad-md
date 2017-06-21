@@ -23,6 +23,24 @@
     },
     "sqlVMSize": {
       "type": "string",
+      "allowedValues": [
+          "Standard_DS2",
+          "Standard_DS3",
+          "Standard_DS4",
+          "Standard_DS11",
+          "Standard_DS12",
+          "Standard_DS13",
+          "Standard_DS14",
+          "Standard_DS2_v2",
+          "Standard_DS3_v2",
+          "Standard_DS4_v2",
+          "Standard_DS5_v2",
+          "Standard_DS11_v2",
+          "Standard_DS12_v2",
+          "Standard_DS13_v2",
+          "Standard_DS14_v2",
+          "Standard_DS15_v2"
+      ],
       "metadata": {
         "description": "Size of the SQL VMs to be created"
       },
@@ -30,6 +48,25 @@
     },
     "sqlWitnessVMSize": {
       "type": "string",
+      "allowedValues": [
+          "Standard_DS2",
+          "Standard_DS3",
+          "Standard_DS4",
+          "Standard_DS11",
+          "Standard_DS12",
+          "Standard_DS13",
+          "Standard_DS14",
+          "Standard_DS1_v2",
+          "Standard_DS2_v2",
+          "Standard_DS3_v2",
+          "Standard_DS4_v2",
+          "Standard_DS5_v2",
+          "Standard_DS11_v2",
+          "Standard_DS12_v2",
+          "Standard_DS13_v2",
+          "Standard_DS14_v2",
+          "Standard_DS15_v2"
+      ],
       "metadata": {
         "description": "Size of the Witness VM to be created"
       },
@@ -104,7 +141,7 @@
       "metadata": {
         "description": "Location of resources that the script is dependent on such as linked templates and DSC modules"
       },
-      "defaultValue": "https://github.com/pelazem/sql-server-2016-alwayson-existing-vnet-and-ad-md/tree/master"
+      "defaultValue": "https://raw.githubusercontent.com/pelazem/sql-server-2016-alwayson-existing-vnet-and-ad-md/master"
     },
     "_artifactsLocationSasToken": {
       "type": "securestring",
