@@ -209,7 +209,7 @@
 			}
 		},
 		{
-			"apiVersion": "2015-06-15",
+			"apiVersion": "2017-03-30",
 			"type": "Microsoft.Compute/virtualMachines",
 			"name": "[concat(variables('sqlNamePrefix'), copyindex())]",
 			"location": "[resourceGroup().location]",
@@ -243,10 +243,10 @@
           "osDisk": {
             "name": "[concat(variables('sqlNamePrefix'), copyindex(), '-osdisk.vhd')]",
             "caching": "ReadWrite",
+            "createOption": "FromImage",
             "managedDisk": {
               "storageAccountType": "[parameters('storageAccountType')]"
-            },
-            "createOption": "FromImage"
+            }
           },
 					"dataDisks": [
 						{
@@ -274,34 +274,34 @@
 				}
 			}
 		},
-		{
-			"apiVersion": "2015-06-15",
-			"type": "Microsoft.Compute/virtualMachines",
-			"name": "[variables('sqlWitnessVMName')]",
-			"location": "[resourceGroup().location]",
-			"dependsOn": [
-				"[resourceId('Microsoft.Network/networkInterfaces',concat(variables('sqlWitnessVMName'), '-nic'))]",
-				"[resourceId('Microsoft.Compute/availabilitySets', variables('sqlAvailabilitySetName'))]"
-			],
-			"properties": {
-				"hardwareProfile": {
-					"vmSize": "[parameters('SqlWitnessVMSize')]"
-				},
-				"availabilitySet": {
-					"id": "[resourceId('Microsoft.Compute/availabilitySets', variables('sqlAvailabilitySetName'))]"
-				},
-				"osProfile": {
-					"computerName": "[variables('sqlWitnessVMName')]",
-					"adminUsername": "[parameters('adminUsername')]",
-					"adminPassword": "[parameters('adminPassword')]"
-				},
-				"storageProfile": {
-					"imageReference": {
-						"publisher": "[parameters('windowsImagePublisher')]",
-						"offer": "[parameters('windowsImageOffer')]",
-						"sku": "[parameters('windowsImageSKU')]",
-						"version": "[parameters('windowsImageVersion')]"
-					},
+    {
+      "apiVersion": "2017-03-30",
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "[variables('sqlWitnessVMName')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkInterfaces',concat(variables('sqlWitnessVMName'), '-nic'))]",
+        "[resourceId('Microsoft.Compute/availabilitySets', variables('sqlAvailabilitySetName'))]"
+      ],
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[parameters('SqlWitnessVMSize')]"
+        },
+        "availabilitySet": {
+          "id": "[resourceId('Microsoft.Compute/availabilitySets', variables('sqlAvailabilitySetName'))]"
+        },
+        "osProfile": {
+          "computerName": "[variables('sqlWitnessVMName')]",
+          "adminUsername": "[parameters('adminUsername')]",
+          "adminPassword": "[parameters('adminPassword')]"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "[parameters('windowsImagePublisher')]",
+            "offer": "[parameters('windowsImageOffer')]",
+            "sku": "[parameters('windowsImageSKU')]",
+            "version": "[parameters('windowsImageVersion')]"
+          },
           "osDisk": {
             "name": "[concat(variables('sqlWitnessVMName'), '-osdisk.vhd')]",
             "managedDisk": {
@@ -310,25 +310,25 @@
             "caching": "ReadWrite",
             "createOption": "FromImage"
           },
-					"dataDisks": [
-						{
-							"name": "[concat(variables('sqlWitnessVMName'), '-datadisk1.vhd')]",
-							"caching": "None",
-							"createOption": "Empty",
-							"diskSizeGB": "[variables('sqlWitnessDiskSize')]",
-							"lun": 0
-						}
-					]
-				},
-				"networkProfile": {
-					"networkInterfaces": [
-						{
-							"id": "[resourceId('Microsoft.Network/networkInterfaces',concat(variables('sqlWitnessVMName'), '-nic'))]"
-						}
-					]
-				}
-			}
-		},
+          "dataDisks": [
+            {
+              "name": "[concat(variables('sqlWitnessVMName'), '-datadisk1.vhd')]",
+              "caching": "None",
+              "createOption": "Empty",
+              "diskSizeGB": "[variables('sqlWitnessDiskSize')]",
+              "lun": 0
+            }
+          ]
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(variables('sqlWitnessVMName'), '-nic'))]"
+            }
+          ]
+        }
+      }
+    },
 		{
 			"name": "[variables('deploySqlWitnessShare')]",
 			"type": "Microsoft.Resources/deployments",
