@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "namePrefix": {
-      "value": "aax3"
+      "value": "aoagmd1"
     },
     "storageAccountType": {
       "value": "Premium_LRS"
@@ -15,31 +15,31 @@
       "value": "Standard_DS1_v2"
     },
     "existingDomainName": {
-      "value": "sqltest.local"
+      "value": ""
     },
     "adminUsername": {
-      "value": "pelazem"
+      "value": ""
     },
     "adminPassword": {
-      "value": "W00hoo@@2016"
+      "value": ""
     },
     "sqlServerServiceAccountUserName": {
-      "value": "sqlservice"
+      "value": ""
     },
     "sqlServerServiceAccountPassword": {
-      "value": "W00hoo@@2016"
+      "value": ""
     },
     "existingVirtualNetworkId": {
-      "value": "/subscriptions/e61e4c75-268b-4c94-ad48-237aa3231481/resourceGroups/sqltest/providers/Microsoft.Network/virtualNetworks/pzsqltestvnet"
+      "value": ""
     },
     "existingSqlSubnetName": {
-      "value": "subnet2"
+      "value": ""
     },
     "existingAdPDCVMName": {
-      "value": "dc1"
+      "value": ""
     },
     "sqlLBIPAddress": {
-      "value": "172.16.2.10"
+      "value": ""
     },
     "_artifactsLocation": {
       "value": "http://paelazsas1.blob.core.windows.net/armdsc/sql2016aoagmd"
