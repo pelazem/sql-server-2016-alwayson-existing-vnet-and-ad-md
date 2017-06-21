@@ -1,17 +1,18 @@
-# Create a SQL Server 2016 Always On Availability Group in an existing Azure VNET and an existing Active Directory instance
+# Create a SQL Server 2016 AlwaysOn Availability Group (AOAG) in an _existing_ Azure VNet and Active Directory domain.
 
-This template will create a SQL Server 2016 Always On Availability Group using the PowerShell DSC Extension in an existing Azure Virtual Network and Active Directory environment.
+This template will create a SQL Server 2016 AlwaysOn Availability Group and configure the VMs using Powershell DSC extensions. 
 
 This template creates the following resources:
-
-+	Three Storage Accounts
-+	One internal load balancer
-+	Three VMs in a Windows Server Cluster, two VMs run SQL Server 2016 with an availability group and the third is a File Share Witness for the Cluster
++	One internal load balancer (ILB)
++	Three storage accounts
++	Three VMs in a Windows Server Failover Cluster (WSFC)
+	+	Two VMs run SQL Server 2016 (primary and synchronous secondary replica)
+	+	The third VM is the File Share Witness for the cluster
 +	One Availability Set for the SQL and Witness VMs
 
-A SQL Server always on listener is created using the internal load balancer.
+The ILB points at the AOAG Listener.
 
-To deploy the required Azure VNET and Active Directory infrastructure, if not already in place, you may use <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/active-directory-new-domain-ha-2-dc">this template</a> to deploy the prerequisite infrastructure.
+If the required Azure VNet and Active Directory infrastructure is not yet in place, it can be deployed using <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/active-directory-new-domain-ha-2-dc">this template</a>.
 
 ## Notes
 
@@ -25,14 +26,19 @@ To deploy the required Azure VNET and Active Directory infrastructure, if not al
 
 + 	The image configuration is defined in variables, but the scripts that configure this deployment have only been tested with these versions and may not work on other images.
 
-+	To successfully deploy this template, be sure that the subnet to which the SQL VMs are being deployed already exists on the specified Azure virtual network, AND this subnet should be defined in Active Directory Sites and Services for the appropriate AD site in which the closest domain controllers are configured.
++	To successfully deploy this template:
+	+	Ensure the subnet to which these VMs will be deployed already exists
+	+	Ensure the subnet has network communication with the AD domain controllers, including checking VNet-to-VNet peering and any applicable Network Security Group (NSG) rules
+	+	Deploy to a subnet that does NOT already have an AOAG (including the ILB) deployed to it
+	+	Recommended: ensure that the subnet to be deployed to is defined in Active Directory Sites and Services
+
 
 Click the button below to deploy from the portal
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Falbertwo1978%2Fsql-server-2016-alwayson-existing-vnet-and-ad-md%2Fmaster%2Fazuredeploy.json" target="_blank">
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fgithub.com%2Fpelazem%2Fsql-server-2016-alwayson-existing-vnet-and-ad-md%2Ftree%2Fmaster%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
-<a href="http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2Falbertwo1978%2Fsql-server-2016-alwayson-existing-vnet-and-ad-md%2Fmaster%2Fazuredeploy.json" target="_blank">
+<a href="http://armviz.io/#/?load=https%3A%2F%2Fgithub.com%2Fpelazem%2Fsql-server-2016-alwayson-existing-vnet-and-ad-md%2Ftree%2Fmaster%2Fazuredeploy.json" target="_blank">
     <img src="http://armviz.io/visualizebutton.png"/>
 </a>
 
@@ -40,26 +46,17 @@ Click the button below to deploy from the portal
 
 You can deploy these samples directly through the Azure Portal or by using the scripts supplied in the root of the repo.
 
-To deploy a sammple using the Azure Portal, click the **Deploy to Azure** button found in the README.md of each sample.
+To deploy a sample using the Azure Portal, click the **Deploy to Azure** button found in the README.md of each sample.
 
 To deploy the sample via the command line (using [Azure PowerShell or the Azure CLI](https://azure.microsoft.com/en-us/downloads/)) you can use the scripts.
 
 Simple execute the script and pass in the folder name of the sample you want to deploy.  For example:
 
-```PowerShell
-.\Deploy-AzureResourceGroup.ps1 -ResourceGroupLocation 'eastus' -ArtifactsStagingDirectory '[foldername]'
+```PowerShell (using the deploy.ps1 script in the root of this repo)
+.\deploy.ps1 -subscriptionId '[Your Azure subscription ID]' -resourceGroupName '[The Resource Group name to deploy to]' -resourceGroupLocation '[Azure region name]'
 ```
 ```bash
-azure-group-deploy.sh -a [foldername] -l eastus -u
+azure-group-deploy.sh -l eastus -u
 ```
-If the sample has artifacts that need to be "staged" for deployment (Configuration Scripts, Nested Templates, DSC Packages) then set the upload switch on the command.
-You can optionally specify a storage account to use, if so the storage account must already exist within the subscription.  If you don't want to specify a storage account
-one will be created by the script or reused if it already exists (think of this as "temp" storage for AzureRM).
 
-```PowerShell
-.\Deploy-AzureResourceGroup.ps1 -ResourceGroupLocation 'eastus' -ArtifactsStagingDirectory '201-vm-custom-script-windows' -UploadArtifacts 
-```
-```bash
-azure-group-deploy.sh -a '201-vm-custom-script-windows' -l eastus -u
-```
 Tags: ``cluster, ha, sql, alwayson``
