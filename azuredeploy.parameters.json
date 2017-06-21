@@ -3,25 +3,49 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "namePrefix": {
-      "value": "GEN-UNIQUE-8"
+      "value": "aax3"
+    },
+    "storageAccountType": {
+      "value": "Premium_LRS"
+    },
+    "sqlVMSize": {
+      "value": "Standard_DS3_v2"
+    },
+    "sqlWitnessVMSize": {
+      "value": "Standard_DS1_v2"
     },
     "existingDomainName": {
-      "value": "contoso.com"
+      "value": "sqltest.local"
     },
     "adminUsername": {
-      "value": "AzureAdmin"
+      "value": "pelazem"
     },
     "adminPassword": {
-      "value": "GEN-PASSWORD"
+      "value": "W00hoo@@2016"
     },
     "sqlServerServiceAccountUserName": {
       "value": "sqlservice"
     },
     "sqlServerServiceAccountPassword": {
-      "value": "GEN-PASSWORD"
+      "value": "W00hoo@@2016"
+    },
+    "existingVirtualNetworkId": {
+      "value": "/subscriptions/e61e4c75-268b-4c94-ad48-237aa3231481/resourceGroups/sqltest/providers/Microsoft.Network/virtualNetworks/pzsqltestvnet"
     },
     "existingSqlSubnetName": {
-      "value": "default"
+      "value": "subnet2"
     },
+    "existingAdPDCVMName": {
+      "value": "dc1"
+    },
+    "sqlLBIPAddress": {
+      "value": "172.16.2.10"
+    },
+    "_artifactsLocation": {
+      "value": "http://paelazsas1.blob.core.windows.net/armdsc/sql2016aoagmd"
+    },
+    "_artifactsLocationSasToken": {
+      "value": ""
+    }
   }
 }
