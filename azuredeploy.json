@@ -8,7 +8,7 @@
       "metadata": {
         "description": "Naming prefix for each new resource created. 8-char max, lowercase alphanumeric"
       },
-      "defaultValue": "GEN-UNIQUE-8"
+      "defaultValue": "GEN_UNIQUE_8"
     },
     "storageAccountType": {
       "type": "string",
