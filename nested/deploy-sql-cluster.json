@@ -97,9 +97,11 @@
 		{
 			"type": "Microsoft.Compute/availabilitySets",
 			"name": "[variables('sqlAvailabilitySetName')]",
-			"apiVersion": "2015-06-15",
+			"apiVersion": "2016-04-30",
 			"location": "[resourceGroup().location]",
-			"properties": {}
+      "properties": {
+        "managed": "true"
+      }
 		},
 		{
 			"apiVersion": "2015-06-15",
