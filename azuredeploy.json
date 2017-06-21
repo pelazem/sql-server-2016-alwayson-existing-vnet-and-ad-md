@@ -2,14 +2,6 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "namePrefix": {
-      "type": "string",
-      "maxLength": 8,
-      "metadata": {
-        "description": "Naming prefix for each new resource created. 8-char max, lowercase alphanumeric"
-      },
-      "value": "GEN-UNIQUE-8"
-    },
     "storageAccountType": {
       "type": "string",
       "allowedValues": [
@@ -24,13 +16,6 @@
     "sqlVMSize": {
       "type": "string",
       "allowedValues": [
-          "Standard_DS2",
-          "Standard_DS3",
-          "Standard_DS4",
-          "Standard_DS11",
-          "Standard_DS12",
-          "Standard_DS13",
-          "Standard_DS14",
           "Standard_DS2_v2",
           "Standard_DS3_v2",
           "Standard_DS4_v2",
@@ -49,13 +34,6 @@
     "sqlWitnessVMSize": {
       "type": "string",
       "allowedValues": [
-          "Standard_DS2",
-          "Standard_DS3",
-          "Standard_DS4",
-          "Standard_DS11",
-          "Standard_DS12",
-          "Standard_DS13",
-          "Standard_DS14",
           "Standard_DS1_v2",
           "Standard_DS2_v2",
           "Standard_DS3_v2",
@@ -152,6 +130,7 @@
     }
   },
   "variables": {
+    "namePrefix": "[substring(uniqueString(parameters('existingSqlSubnetName')),0,8)]",
     "sqlSubnetRef": "[concat(parameters('existingVirtualNetworkId'),'/subnets/',parameters('existingSqlSubnetName'))]",
     "deploySqlClusterTemplateURL": "[concat(parameters('_artifactsLocation'),'/nested/deploy-sql-cluster.json',parameters('_artifactsLocationSasToken'))]",
     "deploySqlCluster": "deploySqlCluster"
@@ -170,7 +149,7 @@
         },
         "parameters": {
           "namePrefix": {
-            "value": "[parameters('namePrefix')]"
+            "value": "[variables('namePrefix')]"
           },
           "domainName": {
             "value": "[parameters('existingDomainName')]"
