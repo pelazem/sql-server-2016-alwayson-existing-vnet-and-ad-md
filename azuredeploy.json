@@ -60,14 +60,14 @@
     "adminUsername": {
       "type": "string",
       "metadata": {
-        "description": "Domain Administrator username of the existing Active Directory Domain"
+        "description": "A domain administrator username in the existing Active Directory Domain"
       },
       "defaultValue": "Administrator"
     },
     "adminPassword": {
       "type": "securestring",
       "metadata": {
-        "description": "Password for the Domain Administrator account of the existing Active Directory Domain"
+        "description": "Password for the domain administrator account in the existing Active Directory Domain"
       },
       "defaultValue": ""
     },
@@ -97,7 +97,7 @@
       "metadata": {
         "description": "Name of the existing subnet in the existing VNET to which the SQL & Witness VMs should be deployed"
       },
-      "defaultValue": "subnet1"
+      "defaultValue": "default"
     },
     "existingAdPDCVMName": {
       "type": "string",
@@ -130,7 +130,7 @@
     }
   },
   "variables": {
-    "namePrefix": "[substring(uniqueString(parameters('existingSqlSubnetName')),0,8)]",
+    "namePrefix": "[substring(uniqueString(concat(parameters('existingSqlSubnetName'),parameters('sqlLBIPAddress'))),0,8)]",
     "sqlSubnetRef": "[concat(parameters('existingVirtualNetworkId'),'/subnets/',parameters('existingSqlSubnetName'))]",
     "deploySqlClusterTemplateURL": "[concat(parameters('_artifactsLocation'),'/nested/deploy-sql-cluster.json',parameters('_artifactsLocationSasToken'))]",
     "deploySqlCluster": "deploySqlCluster"
