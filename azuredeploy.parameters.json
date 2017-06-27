@@ -2,26 +2,47 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "namePrefix": {
-      "value": "GEN-UNIQUE-8"
+    "storageAccountType": {
+      "value": "Premium_LRS"
+    },
+    "sqlVMSize": {
+      "value": "Standard_DS3_v2"
+    },
+    "sqlWitnessVMSize": {
+      "value": "Standard_DS1_v2"
     },
     "existingDomainName": {
-      "value": "contoso.com"
+      "value": ""
     },
     "adminUsername": {
-      "value": "AzureAdmin"
+      "value": ""
     },
     "adminPassword": {
-      "value": "GEN-PASSWORD"
+      "value": ""
     },
     "sqlServerServiceAccountUserName": {
-      "value": "sqlservice"
+      "value": ""
     },
     "sqlServerServiceAccountPassword": {
-      "value": "GEN-PASSWORD"
+      "value": ""
+    },
+    "existingVirtualNetworkId": {
+      "value": ""
     },
     "existingSqlSubnetName": {
-      "value": "default"
+      "value": ""
     },
+    "existingAdPDCVMName": {
+      "value": ""
+    },
+    "sqlLBIPAddress": {
+      "value": ""
+    },
+    "_artifactsLocation": {
+      "value": "https://raw.githubusercontent.com/pelazem/sql-server-2016-alwayson-existing-vnet-and-ad-md/master"
+    },
+    "_artifactsLocationSasToken": {
+      "value": ""
+    }
   }
 }

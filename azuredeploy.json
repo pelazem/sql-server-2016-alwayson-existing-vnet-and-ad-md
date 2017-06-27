@@ -2,76 +2,95 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "namePrefix": {
-      "type": "string",
-      "maxLength": 8,
-      "metadata": {
-        "description": "Naming prefix for each new resource created. 8-char max, lowercase alphanumeric"
-      }
-    },
     "storageAccountType": {
       "type": "string",
       "allowedValues": [
         "Standard_LRS",
-        "Standard_GRS",
-        "Standard_RAGRS",
         "Premium_LRS"
       ],
       "metadata": {
-        "description": "Type of new Storage Accounts (Standard_LRS, Standard_GRS, Standard_RAGRS or Premium_LRS) to be created to store VM disks"
+        "description": "Type of new Storage Accounts (Standard_LRS or Premium_LRS) to be created to store VM disks"
       },
       "defaultValue": "Premium_LRS"
     },
     "sqlVMSize": {
       "type": "string",
+      "allowedValues": [
+          "Standard_DS2_v2",
+          "Standard_DS3_v2",
+          "Standard_DS4_v2",
+          "Standard_DS5_v2",
+          "Standard_DS11_v2",
+          "Standard_DS12_v2",
+          "Standard_DS13_v2",
+          "Standard_DS14_v2",
+          "Standard_DS15_v2"
+      ],
       "metadata": {
         "description": "Size of the SQL VMs to be created"
       },
-      "defaultValue": "Standard_DS3"
+      "defaultValue": "Standard_DS3_v2"
     },
     "sqlWitnessVMSize": {
       "type": "string",
+      "allowedValues": [
+          "Standard_DS1_v2",
+          "Standard_DS2_v2",
+          "Standard_DS3_v2",
+          "Standard_DS4_v2",
+          "Standard_DS5_v2",
+          "Standard_DS11_v2",
+          "Standard_DS12_v2",
+          "Standard_DS13_v2",
+          "Standard_DS14_v2",
+          "Standard_DS15_v2"
+      ],
       "metadata": {
         "description": "Size of the Witness VM to be created"
       },
-      "defaultValue": "Standard_DS1"
+      "defaultValue": "Standard_DS1_v2"
     },
     "existingDomainName": {
       "type": "string",
       "metadata": {
         "description": "DNS domain name for existing Active Directory domain"
       },
-      "defaultValue": "contoso.com"
+      "defaultValue": ""
     },
     "adminUsername": {
       "type": "string",
       "metadata": {
-        "description": "Name of the Administrator of the existing Active Directory Domain"
-      }
+        "description": "A domain administrator username in the existing Active Directory Domain"
+      },
+      "defaultValue": "Administrator"
     },
     "adminPassword": {
       "type": "securestring",
       "metadata": {
-        "description": "Password for the Administrator account of the existing Active Directory Domain"
-      }
+        "description": "Password for the domain administrator account in the existing Active Directory Domain"
+      },
+      "defaultValue": ""
     },
     "sqlServerServiceAccountUserName": {
       "type": "string",
       "metadata": {
-        "description": "The SQL Server Service account name"
-      }
+        "description": "The SQL Server Service domain account name"
+      },
+      "defaultValue": "SQLService"
     },
     "sqlServerServiceAccountPassword": {
       "type": "securestring",
       "metadata": {
-        "description": "The SQL Server Service account password"
-      }
+        "description": "The SQL Server Service domain account password"
+      },
+      "defaultValue": ""
     },
     "existingVirtualNetworkId": {
       "type": "string",
       "metadata": {
         "description": "Resource ID of the existing VNET. You can find the Resource ID for the VNET on the Properties blade of the VNET."
-      }
+      },
+      "defaultValue": ""
     },
     "existingSqlSubnetName": {
       "type": "string",
@@ -85,12 +104,13 @@
       "maxLength": 15,
       "metadata": {
         "description": "Computer name of the existing Primary AD domain controller & DNS server"
-      }
+      },
+      "defaultValue": ""
     },
     "sqlLBIPAddress": {
       "type": "string",
       "metadata": {
-        "description": "IP address of ILB for the SQL Server AlwaysOn listener to be created"
+        "description": "IP address of ILB for the SQL Server AlwaysOn listener to be created. Should be an available IP address in the specified SQL subnet."
       },
       "defaultValue": "10.0.1.10"
     },
@@ -99,17 +119,18 @@
       "metadata": {
         "description": "Location of resources that the script is dependent on such as linked templates and DSC modules"
       },
-      "defaultValue": "https://raw.githubusercontent.com/albertwo1978/sql-server-2016-alwayson-existing-vnet-and-ad-md/master"
+      "defaultValue": "https://raw.githubusercontent.com/pelazem/sql-server-2016-alwayson-existing-vnet-and-ad-md/master"
     },
     "_artifactsLocationSasToken": {
       "type": "securestring",
       "metadata": {
-        "description": "The sasToken required to access _artifactsLocation.  When the template is deployed using the accompanying scripts, a sasToken will be automatically generated."
+        "description": "The sasToken required to access the artifacts Location. If the artifacts location is public, then no value is needed here."
       },
       "defaultValue": ""
     }
   },
   "variables": {
+    "namePrefix": "[substring(uniqueString(concat(parameters('existingSqlSubnetName'),parameters('sqlLBIPAddress'))),0,8)]",
     "sqlSubnetRef": "[concat(parameters('existingVirtualNetworkId'),'/subnets/',parameters('existingSqlSubnetName'))]",
     "deploySqlClusterTemplateURL": "[concat(parameters('_artifactsLocation'),'/nested/deploy-sql-cluster.json',parameters('_artifactsLocationSasToken'))]",
     "deploySqlCluster": "deploySqlCluster"
@@ -128,7 +149,7 @@
         },
         "parameters": {
           "namePrefix": {
-            "value": "[parameters('namePrefix')]"
+            "value": "[variables('namePrefix')]"
           },
           "domainName": {
             "value": "[parameters('existingDomainName')]"
