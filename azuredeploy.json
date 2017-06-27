@@ -16,15 +16,15 @@
     "sqlVMSize": {
       "type": "string",
       "allowedValues": [
-			"Standard_DS2_v2",
-			"Standard_DS3_v2",
-			"Standard_DS4_v2",
-			"Standard_DS5_v2",
-			"Standard_DS11_v2",
-			"Standard_DS12_v2",
-			"Standard_DS13_v2",
-			"Standard_DS14_v2",
-			"Standard_DS15_v2"
+          "Standard_DS2_v2",
+          "Standard_DS3_v2",
+          "Standard_DS4_v2",
+          "Standard_DS5_v2",
+          "Standard_DS11_v2",
+          "Standard_DS12_v2",
+          "Standard_DS13_v2",
+          "Standard_DS14_v2",
+          "Standard_DS15_v2"
       ],
       "metadata": {
         "description": "Size of the SQL VMs to be created"
@@ -54,44 +54,43 @@
       "type": "string",
       "metadata": {
         "description": "DNS domain name for existing Active Directory domain"
-      }
-    },
-    "existingDomainNetbiosName": {
-      "type": "string",
-      "maxLength": 15,
-      "metadata": {
-        "description": "NETBIOS domain name for existing Active Directory domain"
-      }
+      },
+      "defaultValue": ""
     },
     "adminUsername": {
       "type": "string",
       "metadata": {
         "description": "A domain administrator username in the existing Active Directory Domain"
-      }
+      },
+      "defaultValue": "Administrator"
     },
     "adminPassword": {
       "type": "securestring",
       "metadata": {
         "description": "Password for the domain administrator account in the existing Active Directory Domain"
-      }
+      },
+      "defaultValue": ""
     },
     "sqlServerServiceAccountUserName": {
       "type": "string",
       "metadata": {
         "description": "The SQL Server Service domain account name"
-      }
+      },
+      "defaultValue": "SQLService"
     },
     "sqlServerServiceAccountPassword": {
       "type": "securestring",
       "metadata": {
         "description": "The SQL Server Service domain account password"
-      }
+      },
+      "defaultValue": ""
     },
     "existingVirtualNetworkId": {
       "type": "string",
       "metadata": {
         "description": "Resource ID of the existing VNET. You can find the Resource ID for the VNET on the Properties blade of the VNET."
-      }
+      },
+      "defaultValue": ""
     },
     "existingSqlSubnetName": {
       "type": "string",
@@ -104,14 +103,16 @@
       "type": "string",
       "maxLength": 15,
       "metadata": {
-        "description": "VM name of the existing Primary AD domain controller & DNS server"
-      }
+        "description": "Computer name of the existing Primary AD domain controller & DNS server"
+      },
+      "defaultValue": ""
     },
     "sqlLBIPAddress": {
       "type": "string",
       "metadata": {
         "description": "IP address of ILB for the SQL Server AlwaysOn listener to be created. Should be an available IP address in the specified SQL subnet."
-      }
+      },
+      "defaultValue": "10.0.1.10"
     },
     "_artifactsLocation": {
       "type": "string",
@@ -152,9 +153,6 @@
           },
           "domainName": {
             "value": "[parameters('existingDomainName')]"
-          },
-          "netbiosDomainName": {
-            "value": "[parameters('existingDomainNetbiosName')]"
           },
           "dnsServerName": {
             "value": "[parameters('existingAdPDCVMName')]"
