@@ -56,7 +56,7 @@
     },
     "_artifactsLocation": {
       "type": "string",
-      "value": "https://raw.githubusercontent.com/pelazem/sql-server-2016-alwayson-existing-vnet-and-ad-md/master"
+      "value": "https://armdscdev.blob.core.windows.net/deploy/sql-server-2016-alwayson-existing-vnet-and-ad-md"
     },
     "_artifactsLocationSasToken": {
       "type": "string",
