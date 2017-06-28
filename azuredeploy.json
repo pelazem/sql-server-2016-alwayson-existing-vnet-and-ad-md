@@ -16,15 +16,15 @@
     "sqlVMSize": {
       "type": "string",
       "allowedValues": [
-			"Standard_DS2_v2",
-			"Standard_DS3_v2",
-			"Standard_DS4_v2",
-			"Standard_DS5_v2",
-			"Standard_DS11_v2",
-			"Standard_DS12_v2",
-			"Standard_DS13_v2",
-			"Standard_DS14_v2",
-			"Standard_DS15_v2"
+		"Standard_DS2_v2",
+		"Standard_DS3_v2",
+		"Standard_DS4_v2",
+		"Standard_DS5_v2",
+		"Standard_DS11_v2",
+		"Standard_DS12_v2",
+		"Standard_DS13_v2",
+		"Standard_DS14_v2",
+		"Standard_DS15_v2"
       ],
       "metadata": {
         "description": "Size of the SQL VMs to be created"
