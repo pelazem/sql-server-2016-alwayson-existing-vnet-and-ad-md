@@ -34,10 +34,10 @@ param(
  $resourceGroupLocation,
 
  [string]
- $templateFilePath = "azuredeploy.json",
+ $templateFilePath = ($PSScriptRoot + "\" + "azuredeploy.json"),
 
  [string]
- $parametersFilePath = "azuredeploy.parameters.json"
+ $parametersFilePath = ($PSScriptRoot + "\" + "azuredeploy.parameters.json")
 )
 
 <#
@@ -61,7 +61,8 @@ $ErrorActionPreference = "Stop"
 
 # sign in
 Write-Host "Logging in...";
-.\login.ps1 -SubscriptionId $subscriptionId
+$execLogin = ($PSScriptRoot + "\" + "login.ps1 -SubscriptionId '" + $subscriptionId + "'")
+Invoke-Expression $execLogin
 
 # select subscription
 Write-Host "Selecting subscription '$subscriptionId'";
