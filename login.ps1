@@ -9,7 +9,6 @@ param
     [string]$SubscriptionId = ''
 )
 
-
 $loginContext = Get-AzureRmContext
 
 if ($null -eq $loginContext -or $null -eq $loginContext.Subscription)

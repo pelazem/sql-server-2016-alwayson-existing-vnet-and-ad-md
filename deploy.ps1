@@ -34,10 +34,10 @@ param(
  $resourceGroupLocation,
 
  [string]
- $templateFilePath = ($PSScriptRoot + "\" + "azuredeploy.json"),
+ $templateFilePath = "azuredeploy.json",
 
  [string]
- $parametersFilePath = ($PSScriptRoot + "\" + "azuredeploy.parameters.json")
+ $parametersFilePath = "azuredeploy.parameters.json"
 )
 
 <#
@@ -61,8 +61,7 @@ $ErrorActionPreference = "Stop"
 
 # sign in
 Write-Host "Logging in...";
-$execLogin = ($PSScriptRoot + "\" + "login.ps1 -SubscriptionId '" + $subscriptionId + "'")
-Invoke-Expression $execLogin
+.\login.ps1 -SubscriptionId $subscriptionId
 
 # select subscription
 Write-Host "Selecting subscription '$subscriptionId'";
@@ -90,6 +89,14 @@ if(!$resourceGroup)
 }
 else{
     Write-Host "Using existing resource group '$resourceGroupName'";
+}
+
+# Test the deployment - this validates the template but does NOT deploy
+Write-Host "Testing deployment...";
+if(Test-Path $parametersFilePath) {
+    Test-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath -TemplateParameterFile $parametersFilePath;
+} else {
+    Test-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath;
 }
 
 # Start the deployment
