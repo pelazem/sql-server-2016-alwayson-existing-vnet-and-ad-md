@@ -118,7 +118,7 @@
       "type": "string",
       "maxLength": 8,
       "metadata": {
-        "description": "Naming prefix"
+        "description": "Naming prefix. Optional; if not specified, an eight-character random prefix will be auto-generated."
       },
       "defaultValue": ""
     },
@@ -138,7 +138,7 @@
     }
   },
   "variables": {
-    "namePrefix": "[substring(trim(concat(padleft(parameters('namePrefix'), 8, ' ') , uniquestring(deployment().name, parameters('sqlLBIPAddress')))), 0, 8)]",
+    "namePrefix": "[trim(substring(trim(concat(padleft(parameters('namePrefix'), 8, ' '), padleft(substring(uniquestring(deployment().name, parameters('sqlLBIPAddress')), 0, 8), 16, ' '))), 0, 8))]",
     "sqlSubnetRef": "[concat(parameters('existingVirtualNetworkId'),'/subnets/',parameters('existingSqlSubnetName'))]",
     "deploySqlClusterTemplateURL": "[concat(parameters('_artifactsLocation'),'/nested/deploy-sql-cluster.json',parameters('_artifactsLocationSasToken'))]",
     "deploySqlCluster": "deploySqlCluster"
