@@ -94,9 +94,9 @@ else{
 # Test the deployment - this validates the template but does NOT deploy
 Write-Host "Testing deployment...";
 if(Test-Path $parametersFilePath) {
-    Test-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath -TemplateParameterFile $parametersFilePath;
+    Test-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath -TemplateParameterFile $parametersFilePath -ErrorAction Stop
 } else {
-    Test-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath;
+    Test-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath -ErrorAction Stop
 }
 
 # Start the deployment

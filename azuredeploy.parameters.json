@@ -54,6 +54,10 @@
       "type": "string",
       "value": ""
     },
+    "namePrefix": {
+      "type": "string",
+      "value": ""
+    },
     "_artifactsLocation": {
       "type": "string",
       "value": "https://armdscdev.blob.core.windows.net/deploy/sql-server-2016-alwayson-existing-vnet-and-ad-md"
