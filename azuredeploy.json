@@ -88,10 +88,10 @@
         "description": "The SQL Server Service domain account password"
       }
     },
-    "existingVirtualNetworkId": {
+    "existingSqlVNetName": {
       "type": "string",
       "metadata": {
-        "description": "Resource ID of the existing VNET. You can find the Resource ID for the VNET on the Properties blade of the VNET."
+        "description": "Name of the existing VNet where SQL resources will be deployed."
       }
     },
     "existingSqlSubnetName": {
@@ -139,7 +139,7 @@
   },
   "variables": {
     "namePrefix": "[trim(substring(trim(concat(padleft(parameters('namePrefix'), 8, ' '), padleft(substring(uniquestring(deployment().name, parameters('sqlLBIPAddress')), 0, 8), 16, ' '))), 0, 8))]",
-    "sqlSubnetRef": "[concat(parameters('existingVirtualNetworkId'),'/subnets/',parameters('existingSqlSubnetName'))]",
+    "sqlSubnetRef": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('existingSqlVNetName')),'/subnets/',parameters('existingSqlSubnetName'))]",
     "deploySqlClusterTemplateURL": "[concat(parameters('_artifactsLocation'),'/nested/deploy-sql-cluster.json',parameters('_artifactsLocationSasToken'))]",
     "deploySqlCluster": "deploySqlCluster"
   },

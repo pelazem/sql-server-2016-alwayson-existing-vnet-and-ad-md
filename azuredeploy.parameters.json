@@ -38,9 +38,9 @@
       "type": "securestring",
       "value": ""
     },
-    "existingVirtualNetworkId": {
+    "existingSqlVNetName": {
       "type": "string",
-      "value": ""
+      "value": "sqltestaoagvnet"
     },
     "existingSqlSubnetName": {
       "type": "string",
