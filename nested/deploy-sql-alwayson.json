@@ -68,13 +68,13 @@
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "name": "[concat(parameters('sqlNamePrefix'),'0/sqlAOPrepare')]",
-      "apiVersion": "2015-06-15",
+      "apiVersion": "2016-03-30",
       "location": "[resourceGroup().location]",
       "dependsOn": [],
       "properties": {
         "publisher": "Microsoft.Powershell",
         "type": "DSC",
-        "typeHandlerVersion": "2.17",
+        "typeHandlerVersion": "2.26",
         "autoUpgradeMinorVersion": true,
         "settings": {
           "wmfVersion": "5.0",
@@ -105,7 +105,7 @@
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "name": "[concat(parameters('sqlNamePrefix'),'1/CreateCluster')]",
-      "apiVersion": "2015-06-15",
+      "apiVersion": "2016-03-30",
       "location": "[resourceGroup().location]",
       "dependsOn": [
         "[concat('Microsoft.Compute/virtualMachines/',parameters('sqlNamePrefix'),'0/extensions/sqlAOPrepare')]"
@@ -113,7 +113,7 @@
       "properties": {
         "publisher": "Microsoft.Powershell",
         "type": "DSC",
-        "typeHandlerVersion": "2.17",
+        "typeHandlerVersion": "2.26",
         "autoUpgradeMinorVersion": true,
         "settings": {
           "wmfVersion": "5.0",

@@ -38,6 +38,10 @@
       "type": "securestring",
       "value": ""
     },
+    "existingSqlVNetResourceGroupName": {
+      "type": "string",
+      "value": ""
+    },
     "existingSqlVNetName": {
       "type": "string",
       "value": "sqltestaoagvnet"
@@ -58,9 +62,27 @@
       "type": "string",
       "value": ""
     },
+
+	"sqlWindowsImagePublisher": {
+		"type": "string",
+		"value": "MicrosoftSQLServer"
+	},
+	"sqlWindowsImageOffer": {
+		"type": "string",
+		"value": "SQL2016SP1-WS2016"
+	},
+	"sqlWindowsImageSKU": {
+		"type": "string",
+		"value": "Enterprise"
+	},
+    "sqlWindowsImageVersion": {
+      "type": "string",
+      "value": "latest"
+    },
+
     "_artifactsLocation": {
       "type": "string",
-      "value": "https://armdscdev.blob.core.windows.net/deploy/sql-server-2016-alwayson-existing-vnet-and-ad-md"
+      "value": "https://armdscdev.blob.core.windows.net/deploy/master/sql-server-2016-alwayson-existing-vnet-and-ad-md"
     },
     "_artifactsLocationSasToken": {
       "type": "string",

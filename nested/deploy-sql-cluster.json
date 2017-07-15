@@ -51,24 +51,19 @@
 			"type": "string"
 		},
 		"windowsImagePublisher": {
-			"type": "string",
-			"defaultValue": "MicrosoftSQLServer"
+			"type": "string"
 		},
-    "windowsImageOffer": {
-      "type": "string",
-      "defaultValue": "SQL2016SP1-WS2016"
-    },
+		"windowsImageOffer": {
+			"type": "string"
+		},
 		"windowsImageSKU": {
-			"type": "string",
-			"defaultValue": "Enterprise"
+			"type": "string"
 		},
 		"windowsImageVersion": {
-			"type": "string",
-			"defaultValue": "latest"
+			"type": "string"
 		}
 	},
 	"variables": {
-		"apiVersionStorage": "2015-06-15",
 		"sqlDiskSize": 1000,
 		"sqlWitnessDiskSize": 128,
 		"sqlNamePrefix": "[concat(parameters('namePrefix'),'-sql-')]",
@@ -102,14 +97,14 @@
 			"name": "[variables('sqlAvailabilitySetName')]",
 			"apiVersion": "2016-04-30-preview",
 			"location": "[resourceGroup().location]",
-      "properties": {
-        "platformFaultDomainCount": "3",
-        "platformUpdateDomainCount": "3",
-        "managed": "true"
-      }
+		"properties": {
+			"platformFaultDomainCount": 3,
+			"platformUpdateDomainCount": 3,
+			"managed": "true"
+		}
 		},
 		{
-			"apiVersion": "2015-06-15",
+			"apiVersion": "2017-03-01",
 			"name": "[variables('sqlLBName')]",
 			"type": "Microsoft.Network/loadBalancers",
 			"location": "[resourceGroup().location]",

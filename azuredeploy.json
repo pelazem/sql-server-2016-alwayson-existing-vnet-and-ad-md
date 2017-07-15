@@ -16,15 +16,15 @@
     "sqlVMSize": {
       "type": "string",
       "allowedValues": [
-		"Standard_DS2_v2",
-		"Standard_DS3_v2",
-		"Standard_DS4_v2",
-		"Standard_DS5_v2",
-		"Standard_DS11_v2",
-		"Standard_DS12_v2",
-		"Standard_DS13_v2",
-		"Standard_DS14_v2",
-		"Standard_DS15_v2"
+        "Standard_DS2_v2",
+        "Standard_DS3_v2",
+        "Standard_DS4_v2",
+        "Standard_DS5_v2",
+        "Standard_DS11_v2",
+        "Standard_DS12_v2",
+        "Standard_DS13_v2",
+        "Standard_DS14_v2",
+        "Standard_DS15_v2"
       ],
       "metadata": {
         "description": "Size of the SQL VMs to be created"
@@ -88,6 +88,12 @@
         "description": "The SQL Server Service domain account password"
       }
     },
+    "existingSqlVNetResourceGroupName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the resource group that contains the existing VNet that will be associated with SQL resources. (Sometimes the VNet may be defined in a different resource group than where SQL resources will be deployed.)"
+      }
+    },
     "existingSqlVNetName": {
       "type": "string",
       "metadata": {
@@ -105,7 +111,7 @@
       "type": "string",
       "maxLength": 15,
       "metadata": {
-        "description": "VM name of the existing Primary AD domain controller & DNS server"
+        "description": "Azure VM name of the existing Primary AD domain controller & DNS server"
       }
     },
     "sqlLBIPAddress": {
@@ -122,12 +128,50 @@
       },
       "defaultValue": ""
     },
+
+    "sqlWindowsImagePublisher": {
+      "type": "string",
+      "metadata": {
+        "description": "SQL image publisher."
+      },
+      "defaultValue": "MicrosoftSQLServer"
+    },
+    "sqlWindowsImageOffer": {
+      "type": "string",
+      "metadata": {
+        "description": "SQL image offer."
+      },
+      "allowedValues": [
+        "SQL2016-WS2012R2",
+        "SQL2016SP1-WS2016"
+      ],
+      "defaultValue": "SQL2016SP1-WS2016"
+    },
+    "sqlWindowsImageSKU": {
+      "type": "string",
+      "metadata": {
+        "description": "SQL SKU."
+      },
+      "allowedValues": [
+          "Enterprise",
+          "SQLDEV"
+      ],
+      "defaultValue": "SQLDEV"
+    },
+    "sqlWindowsImageVersion": {
+      "type": "string",
+      "metadata": {
+        "description": "Version of the SQL Windows image to use if other than latest."
+      },
+      "defaultValue": "latest"
+    },
+
     "_artifactsLocation": {
       "type": "string",
       "metadata": {
         "description": "Location of resources that the script is dependent on such as linked templates and DSC modules"
       },
-      "defaultValue": "https://armdscdev.blob.core.windows.net/deploy/sql-server-2016-alwayson-existing-vnet-and-ad-md"
+      "defaultValue": "https://armdscdev.blob.core.windows.net/deploy/master/sql-server-2016-alwayson-existing-vnet-and-ad-md"
     },
     "_artifactsLocationSasToken": {
       "type": "securestring",
@@ -139,7 +183,7 @@
   },
   "variables": {
     "namePrefix": "[trim(substring(trim(concat(padleft(parameters('namePrefix'), 8, ' '), padleft(substring(uniquestring(deployment().name, parameters('sqlLBIPAddress')), 0, 8), 16, ' '))), 0, 8))]",
-    "sqlSubnetRef": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('existingSqlVNetName')),'/subnets/',parameters('existingSqlSubnetName'))]",
+    "sqlSubnetRef": "[concat(resourceId(parameters('existingSqlVNetResourceGroupName'), 'Microsoft.Network/virtualNetworks', parameters('existingSqlVNetName')),'/subnets/',parameters('existingSqlSubnetName'))]",
     "deploySqlClusterTemplateURL": "[concat(parameters('_artifactsLocation'),'/nested/deploy-sql-cluster.json',parameters('_artifactsLocationSasToken'))]",
     "deploySqlCluster": "deploySqlCluster"
   },
@@ -198,6 +242,20 @@
           "sqlWitnessVMSize": {
             "value": "[parameters('sqlWitnessVMSize')]"
           },
+
+          "windowsImagePublisher": {
+            "value": "[parameters('sqlWindowsImagePublisher')]"
+          },
+          "windowsImageOffer": {
+            "value": "[parameters('sqlWindowsImageOffer')]"
+          },
+          "windowsImageSKU": {
+            "value": "[parameters('sqlWindowsImageSKU')]"
+          },
+          "windowsImageVersion": {
+            "value": "[parameters('sqlWindowsImageVersion')]"
+          },
+
           "_artifactsLocation": {
             "value": "[parameters('_artifactsLocation')]"
           },

@@ -32,13 +32,13 @@
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "name": "[concat(parameters('sqlWitnessVMName'),'/CreateFileShareWitness')]",
-      "apiVersion": "2015-06-15",
+      "apiVersion": "2016-03-30",
       "location": "[resourceGroup().location]",
       "dependsOn": [],
       "properties": {
         "publisher": "Microsoft.Powershell",
         "type": "DSC",
-        "typeHandlerVersion": "2.17",
+        "typeHandlerVersion": "2.26",
         "autoUpgradeMinorVersion": true,
         "settings": {
           "wmfVersion": "5.0",
