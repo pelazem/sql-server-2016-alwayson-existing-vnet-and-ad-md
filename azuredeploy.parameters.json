@@ -77,7 +77,7 @@
 	},
     "sqlWindowsImageVersion": {
       "type": "string",
-      "value": "latest"
+      "value": "13.0.500110"  // latest does not work as of July image - DSC incompat
     },
 
     "_artifactsLocation": {
