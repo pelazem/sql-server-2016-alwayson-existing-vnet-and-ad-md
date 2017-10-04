@@ -8,11 +8,11 @@
     },
     "sqlVMSize": {
       "type": "string",
-      "value": "Standard_DS3_v2"
+      "value": "Standard_E4s_v3"
     },
     "sqlWitnessVMSize": {
       "type": "string",
-      "value": "Standard_DS1_v2"
+      "value": "Standard_D2s_v3"
     },
     "existingDomainName": {
       "type": "string",
@@ -44,11 +44,11 @@
     },
     "existingSqlVNetName": {
       "type": "string",
-      "value": "sqltestaoagvnet"
+      "value": ""
     },
     "existingSqlSubnetName": {
       "type": "string",
-      "value": ""
+      "value": "`"
     },
     "existingAdPDCVMName": {
       "type": "string",
@@ -77,7 +77,7 @@
 	},
     "sqlWindowsImageVersion": {
       "type": "string",
-      "value": "latest"
+      "value": "13.0.500110"
     },
 
     "_artifactsLocation": {
