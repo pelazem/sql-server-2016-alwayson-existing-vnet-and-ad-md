@@ -48,7 +48,7 @@
     },
     "existingSqlSubnetName": {
       "type": "string",
-      "value": ""
+      "value": "`"
     },
     "existingAdPDCVMName": {
       "type": "string",
